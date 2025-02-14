@@ -20,10 +20,38 @@
         }
       }
     </style>
+    <style>
+      .heart-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .heart {
+        position: absolute;
+        color: red;
+        font-size: 24px;
+        animation: fall linear infinite;
+      }
+
+      @keyframes fall {
+        from {
+          transform: translateY(-10vh);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(100vh);
+          opacity: 0;
+        }
+      }
+    </style>
   </head>
 
   <body class="not-loaded">
-    
     <div class="night"></div>
 
     <div class="flowers">
@@ -337,6 +365,26 @@
     </div>
 
     <h1 class="title"><span id="title"></span></h1>
+    <div class="heart-container"></div>
+    <script>
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 2 + "s"; // Random fall duration
+
+        document.querySelector(".heart-container").appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 5000); // Remove heart after animation ends
+      }
+
+      // Generate a new heart every 300ms
+      setInterval(createHeart, 300);
+    </script>
   </body>
 </html>
 
